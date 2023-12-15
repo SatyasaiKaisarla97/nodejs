@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express');
 const bodyParser = require('body-parser');
+const notFoundContoller = require('./controllers/404')
 
 const app = express();
 
@@ -13,10 +14,8 @@ app.use(express.static(path.join(__dirname,'public',)))
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-app.use(contactRoute)
+app.use(contactRoute);
 
-app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, 'views','404.html'));
-});
+app.use(notFoundContoller.pageNotFound);
 
 app.listen(3000);
